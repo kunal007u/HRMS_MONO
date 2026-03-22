@@ -1,0 +1,54 @@
+:root {
+    --header-bg-color: rgba(244, 247, 254, 0.2);
+    --header-border-color: #1b254b;
+    --header-text-color: var(--text-color);
+    --profile-bg-color: white;
+    --profile-shadow-color: rgba(112, 144, 176, 0.18);
+}
+
+.header-content {
+    width: calc(100vw - 253px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--header-bg-color);
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-position: center;
+    background-size: cover;
+    border-radius: 16px;
+    transition: all 0.25s linear;
+    line-height: 25.6px;
+    margin: 20px 0 0 auto 20px;
+    z-index: 1000;
+}
+.header.white-box{
+    padding: 10px 15px !important;
+}
+
+.header-main {
+    margin-bottom: 15px;
+}
+
+.profile-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--profile-bg-color);
+    padding: 0 12px;
+    border-radius: 30px;
+    height: 53px;
+    transition: all 0.4s ease-in-out;
+    justify-content: space-between;
+    box-shadow: 14px 17px 40px 4px var(--profile-shadow-color);
+}
+
+.profile-component {
+    color: var(--header-border-color);
+    background: inherit;
+}
+
+.profile-component span {
+    font-weight: 500;
+    font-size: 25px;
+}

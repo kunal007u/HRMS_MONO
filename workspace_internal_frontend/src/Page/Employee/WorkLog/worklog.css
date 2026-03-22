@@ -1,0 +1,7 @@
+.work-detail-lists {
+    padding: 5px 30px;
+}
+
+.work-detail-lists li {
+    list-style: inherit;
+}

@@ -1,0 +1,331 @@
+:root {
+    --sidebar-icon-color: #636B74;
+    --sidebar-text-color: #b7c0cd;
+    --border-radius: 5px;
+}
+
+/* -------------------- Sidebar Header -------------------- */
+.sidebar .MuiPaper-root {
+    background-color: #1e618f !important;
+    width: 280px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-logo {
+    height: 30px;
+    width: 154px;
+    object-fit: cover;
+    filter: brightness(0) invert(1);
+
+}
+
+.sidebar-logo img {
+    height: 100%;
+    width: 100%;
+}
+
+/* -------------------- Sidebar ------------------- */
+.sidebar-menu-item.active .sidebar-list-item-text,
+.sidebar-menu-item.active .sidebar-list-item-icon {
+    color: black !important;
+    filter: none;
+
+}
+
+.sidebar-container {
+    overflow: hidden;
+}
+
+.sidebar-link,
+.sidebar-menu-item {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px;
+    cursor: pointer;
+    margin: 10px 0px 0 0;
+}
+
+.sidebar-main-menu-link {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    cursor: pointer;
+    margin: 10px 0px 0 0;
+}
+
+.sidebar-main-menu-link.active {
+    background-color: #ffffff;
+    color: #000000 !important;
+    border-radius: 5px;
+}
+
+.sidebar-main-menu-link.active .sidebar-list-item-text {
+    color: black !important;
+    filter: none;
+}
+
+.sidebar-main-menu-link.active .sidebar-list-item-icon {
+    color: black !important;
+    filter: none;
+}
+
+.sidebar-menu-item.active {
+    background-color: #ffffff;
+    color: black !important;
+    border-radius: 5px;
+}
+
+.sidebar-link.active {
+    background-color: #024d81;
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.sidebar-link-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.sidebar-link.active .sidebar-list-item-text,
+.sidebar-link-active-open .sidebar-list-item-text {
+    font-size: 14px;
+    color: black;
+}
+
+.sidebar-link.active .sidebar-list-item-icon,
+.sidebar-link-active-open .sidebar-list-item-icon {
+    /* color: var(--primary-color); */
+    filter: brightness(0.5);
+}
+
+
+.sidebar-list-item-icon {
+    display: inline-block;
+    line-height: 15px;
+    text-align: left;
+    vertical-align: middle;
+    width: 22px;
+    filter: brightness(0) invert(1);
+    transition: all .2s ease;
+}
+
+.sidebar-list-item-down-icon {
+    display: flex;
+    filter: brightness(0) invert(1);
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+}
+
+.sidebar-menu-item.active .sidebar-list-item-down-icon,
+.sidebar-link-active-open .sidebar-list-item-down-icon {
+    filter: brightness(0.5);
+}
+
+.sidebar-collapse a:hover {
+    background-color: #024d81;
+    color: #fff !important;
+    border-radius: 5px;
+
+}
+
+.sidebar-collapse .child-menu-list:hover {
+    background-color: #417ba3 !important;
+    color: #fff !important;
+    border-radius: 5px;
+
+}
+
+.sidebar-list-item-icon svg {
+    width: 22px;
+}
+
+.sidebar-list-item-text {
+    color: #ffff;
+    font-size: 15px;
+}
+
+/*-------------------- Sidebar - childMenu --------------------*/
+
+.child-menu-list {
+    width: 90%;
+    margin: 10px auto !important;
+}
+
+.sidebar-collapse .child-menu-list.active {
+    background-color: #417ba3 !important;
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.child-menu-item {
+    padding: 0 !important;
+}
+
+.sidebar-child-link:hover {
+    background-color: #024d81;
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.sub-child-menu-item .sidebar-child-list-item-text {
+    padding-left: 25px !important;
+}
+
+.sidebar-child-link {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.sidebar-child-list-item-text {
+    padding-left: 25px !important;
+}
+
+.sidebar-child-list-item-text span {
+    font-size: 14px !important;
+    color: white !important;
+}
+
+.child-active {
+    background-color: #024d81;
+    color: #fff !important;
+    border-radius: 5px;
+    /* 417ba3 */
+}
+
+.subchild-sidebar-collapse .child-active {
+    background-color: #417ba3 !important;
+}
+
+
+.sidebar-content-main {
+    position: relative;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.sidebar-footer-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.sidebar-container {
+    overflow: scroll;
+    height: calc(100vh - 168px);
+    padding: 8px !important;
+}
+
+.sidebar-collapse {
+    padding: 0 10px;
+    background-color: #ffffff36;
+    border-radius: 0px 0 5px 5px;
+
+}
+
+.child-open {
+    padding-bottom: 8px;
+}
+
+.subchild-sidebar-collapse {
+    background-color: #1e618f;
+    border-radius: 0px 0 5px 5px;
+}
+
+.subchild-sidebar-menu-item.active {
+    background-color: #024d81;
+}
+
+.subchild-sidebar-collapse li {
+    padding: 0 10px !important;
+}
+
+.sidebar-footer-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+
+}
+
+.sidebar-footer-content p {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+.sidebar-footer-content svg {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-link-active-open {
+    border-radius: 5px 5px 0 0 !important;
+    background-color: white !important;
+}
+
+.subchild-sidebar-link {
+    margin: 10px 0 0 0 !important;
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0 10px 0px;
+    border-radius: 5px;
+}
+
+
+.subchild-sidebar-link:hover {
+    background-color: #024d81;
+}
+
+.subchild-sidebar-link-item {
+    margin-left: 11px;
+
+}
+
+.subchild-sidebar-list-item-text {
+    color: white !important;
+    font-size: 15px !important;
+}
+
+.subchild-sidebar-list-item-down-icon {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.subchild-sidebar-link-active-open {
+    background-color: #024d81;
+    border-radius: 5px 5px 0px 0px !important;
+}
+
+.subchild-sidebar-list-item-down-icon svg {
+    color: white;
+}

@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+}
+
+.sidebar-main {
+    min-width: 250px;
+    border-right: 1px solid #e0e0e0;
+    overflow: auto;
+    background-color: #024d81;
+    height: 100vh;
+
+}
+
+.main-content-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 15px;
+}

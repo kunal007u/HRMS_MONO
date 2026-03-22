@@ -1,0 +1,61 @@
+.asset-image {
+    width: 60px;
+}
+
+.asset-image img {
+    border-radius: 4px;
+}
+
+.left-side li {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.left-side li span {
+    float: right;
+    color: #595959;
+    margin-left: 15px;
+}
+
+.right-side {
+    margin-right: 130px;
+}
+
+.right-side li {
+    margin-bottom: 28px;
+}
+
+.rise-query .btn {
+    border-radius: 30px !important;
+    background-color: #024d81bf !important;
+
+}
+.asset-info-container h4 {
+    font-weight: 600 !important;
+}
+
+
+.asset-img h6{
+    font-size: 14px;
+    font-weight: 600;
+    color: #595959;
+}
+
+.asset-inf{
+   font-size: 14px;
+    font-weight: 600;
+    
+}
+
+.assign-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.second-row-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

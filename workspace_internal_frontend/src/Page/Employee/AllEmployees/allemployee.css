@@ -1,0 +1,73 @@
+.add-employee-form {
+    padding: 20px;
+}
+
+.employee-filter-form-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.employee-filter-form-content .content-box {
+    flex-basis: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.employee-filter-form-content .btn {
+    width: 100% !important;
+    height: 45px;
+}
+
+.employee-box-content {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 15px;
+
+}
+
+.employee-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 25px 0px;
+    cursor: pointer;
+}
+
+.box-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-avatar {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.box-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box-content h3 {
+    color: #333333;
+}
+
+.dropdown.profile-action {
+    text-align: right;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}

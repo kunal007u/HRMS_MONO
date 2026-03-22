@@ -1,0 +1,10 @@
+.bread-crumbs-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-transform: capitalize;
+    display: inline-block;
+
+}

@@ -1,0 +1,66 @@
+services:
+  db:
+    image: postgres:17.4-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+  
+  frontend:
+    build:
+      context: ./workspace_internal_frontend
+      args:
+        VITE_CIPHER: "HRmS#"
+        VITE_BASE_URL: "http://192.168.1.50:9000"
+        VITE_PATH_PREFIX: "/admin"
+    ports:
+      - "5003:80"
+    depends_on:
+      - backend
+    restart: always
+    volumes:
+      - ./workspace_internal_frontend/nginx.conf:/etc/nginx/nginx.conf
+      
+  backend:
+    build:
+      context: ./workspace_internal_backend
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./workspace_internal_backend/.env
+    depends_on:
+      db: 
+       condition: service_healthy
+    restart: always
+
+  backup:
+    image: amazonlinux:latest
+    container_name: db_backup
+    depends_on:
+      - db
+    volumes:
+      - ./backup:/backup
+      - ./backup.sh:/backup.sh
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS}
+    entrypoint: ["sh", "-c", "sh /backup.sh"]
+
+volumes:
+  pgdata:
+  backup:

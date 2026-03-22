@@ -1,0 +1,88 @@
+.leave-add-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.my-leaves-form-section {
+    padding: 20px;
+    width: 40vw;
+}
+
+.my-leaves-fomrik-fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.start-date-field,
+.end-date-field {
+    width: 49.8% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.leave-type-field,
+.date-picker-control,
+.reason-field {
+    width: 100% !important;
+}
+
+.my-leave-dashboard-boxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 50%;
+}
+
+.my-leave-dashboard-boxes .content-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.my-leave-dashboard-boxes .content-box h3 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+}
+
+.my-leave-dashboard-boxes .content-box span {
+    font-size: 20px;
+    /* font-weight: bold; */
+}
+
+.leave-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .leave-table th,
+  .leave-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .leave-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .leave-table select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+  }
+  
+  .leave-table select:disabled {
+    background-color: #e0e0e0;
+  }
+  
+  .leave-table tfoot td {
+    font-weight: bold;
+  }

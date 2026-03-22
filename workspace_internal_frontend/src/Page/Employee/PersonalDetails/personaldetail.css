@@ -1,0 +1,480 @@
+:root {
+    --profile-picture-size: 120px;
+    --text-color-primary: black;
+    --text-color-secondary: black;
+}
+
+/* ----------------- PERSONAL - DETAIL ---------------------*/
+.employee-img {
+    height: 200px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.employee-img img {
+    object-fit: cover;
+    border-radius: 5px !important;
+}
+
+.employee-info {
+    width: 78%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.employee-name {
+    font-size: 28px;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.employee-loc-email-phone {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+
+}
+
+.employee-loc-email-phone .employee-location span,
+.employee-loc-email-phone .employee-email span,
+.employee-loc-email-phone .employee-phone span,
+.employee-loc-email-phone .employee-doj span,
+.employee-loc-email-phone .employee-gender span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* color: gray; */
+}
+
+.employee-loc-email-phone .employee-location span svg,
+.employee-loc-email-phone .employee-email span svg,
+.employee-loc-email-phone .employee-phone span svg,
+.employee-loc-email-phone .employee-doj span svg,
+.employee-loc-email-phone .employee-gender span svg {
+    color: gray;
+}
+
+.other-info {
+    display: flex;
+    align-items: flex-start;
+    width: 70%;
+    justify-content: space-between;
+}
+
+.other-info p {
+    color: gray;
+}
+
+
+/* ----------------- PERSONAL - DETAIL - CONTENT ---------------------*/
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-container .white-box {
+    flex-grow: 1;
+    flex-basis: 600px;
+}
+
+.edit-icon {
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.personal-detail-main-title h3,
+.emergency-contact-detail-main-title h3,
+.bank-detail-main-title h3,
+.experience-information-main-title h3,
+.upload-detail-main-title h3 {
+    color: var(--text-color-primary);
+    font-weight: 500;
+    font-size: var(--hading-font-size);
+    text-transform: capitalize;
+}
+
+.personal-detail-title h4,
+.emergency-contact-detail-title h4,
+.bank-detail-title h4,
+.experience-information-title h4 {
+    width: 170px !important;
+    font-weight: 500 !important;
+    font-size: var(--text-font-size);
+}
+
+.primary-contact h3,
+.secondary-contact h3 {
+    font-weight: 600 !important;
+}
+
+.personal-detail-content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.emergency-contact-detail-content-container {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.personal-title-value {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.emergency-contact-title-value {
+
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.bank-detail-content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.bank-title-value {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.experience-information-container {
+    height: 350px;
+    overflow: scroll;
+}
+
+.experience-information-title-value {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.experience-information-content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.experience-box {
+    position: relative;
+}
+
+.experience-box .experience-list {
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.experience-box .experience-list::before {
+    background: #dddddd;
+    bottom: 0;
+    content: "";
+    width: 2px;
+    position: absolute;
+    top: 20px;
+    left: 8px;
+    height: 100%;
+}
+
+.experience-box .experience-list li .experience-user {
+    background: #ffffff;
+    height: 10px;
+    width: 10px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    left: 4px;
+}
+
+.experience-box .experience-list li .experience-user .before-circle {
+    background-color: #dddddd;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+}
+
+.experience-box .experience-list li .experience-content {
+    background-color: #ffffff;
+    margin: 0 0 20px 40px;
+    padding: 0;
+    position: relative;
+}
+
+.experience-box .experience-list li .experience-content .timeline-content {
+    color: #9e9e9e;
+}
+
+.experience-box .experience-list li .experience-content .timeline-content a.name {
+    color: #000000;
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.experience-box .experience-list li .experience-content .time {
+    color: #777777;
+    display: block;
+    font-size: 14px;
+    line-height: 1.35;
+    margin: 3px 0px;
+}
+
+.experience-box .experience-list li .experience-content .designation.time {
+    color: #000000;
+}
+
+.location .form-control {
+    width: 49% !important;
+}
+
+
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.isPresent {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.checkbox span {
+    padding: 0px !important;
+}
+
+.gender-radio {
+    width: 31rem;
+}
+
+.actions .btn {
+    font-size: 14px !important;
+}
+
+/* ----------------- PERSONAL - DETAIL - CONTENT - FORM ---------------------*/
+
+.personal-detail-form-container {
+    width: 850px;
+    padding: 20px;
+}
+
+.personal-detail-form-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.personal-detail-form-content .content-box {
+    flex-grow: 1;
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.profile-image {
+    flex-basis: 100% !important;
+    align-items: center;
+}
+
+
+/* .profile-image .form-control {
+    width: 49% !important;
+} */
+
+
+/* -----------------  FILE - UPLOAD  ---------------------*/
+
+.custom-file-upload {
+    height: 160px;
+    width: 209px;
+    border: 2px dashed #cacaca;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.custom-file-upload.cursor-pointer {
+    cursor: pointer;
+}
+
+.custom-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    cursor: pointer;
+}
+
+.custom-file-upload .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(123, 120, 120, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+}
+
+.custom-file-upload:hover .overlay {
+    opacity: 1;
+}
+
+.custom-file-upload .upload-content-icons {
+    position: absolute;
+    top: 50%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    color: white;
+    transition: color 1s ease-in-out;
+    gap: 1rem;
+    display: flex;
+}
+
+.editIcon {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.custom-file-upload .upload-content-icons a {
+    margin-right: 24px;
+    color: white !important;
+    font-size: 26px;
+}
+
+.custom-file-upload .upload-content-icons :hover {
+    color: rgba(0, 0, 0, 0.527);
+}
+
+
+.custom-file-upload .icon {
+    height: 140px;
+    fill: rgba(75, 85, 99, 1);
+    width: 210px;
+}
+
+.custom-file-upload .text {
+    justify-content: center;
+}
+
+.custom-file-upload .text span {
+    font-weight: 400;
+    color: rgba(75, 85, 99, 1);
+}
+
+.custom-file-upload input {
+    display: none;
+}
+
+.upload-box-container {
+    gap: 20px;
+    width: 100%;
+    /* justify-content: center; */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.preview {
+    /* height : 250px; */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-detail-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+
+@media only screen and (max-width:1540px) {
+    .profile-container .white-box {
+        flex-grow: 1;
+        flex-basis: 400px;
+    }
+
+}
+
+@media only screen and (max-width:1152px) {
+    .profile-container .white-box {
+        flex-grow: 1;
+        flex-basis: 370px;
+    }
+
+}
+
+@media only screen and (max-width:1400px) {
+    .personal-detail-card {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .personal-detail-card-left {
+        width: 100%;
+        padding: 0px 25px 0px 15px;
+        border-right: 1px dashed #ccc;
+    }
+
+    .personal-detail-content-right-part {
+        width: 50%;
+        margin: auto;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+}
+
+.timeline-content a {
+    width: 100%;
+    display: block;
+    overflow-wrap: break-word;
+}
+.timeline-content .designation{
+    width: 100%;
+    display: block;
+    overflow-wrap: break-word;
+}

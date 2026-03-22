@@ -1,0 +1,116 @@
+.main-title h2 {
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.all-employee-salary-form-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 10px;
+    /* justify-content: space-around; */
+    align-items: end;
+    width: 100%;
+}
+
+.month-field{
+    width: 20%;
+}
+
+.all-employee-salary-form-content .content-box {
+    flex-grow: 1;
+    flex-basis: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+
+.salary-filter-form-content .content-box {
+    flex-basis: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+.salary-filter-form-content .btn {
+    width: 100% !important;
+    height: 45px;
+}
+
+.pay-slip-content .left-side .logo {
+    height: 40px;
+    width: 200px;
+}
+
+.second-half {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px;
+}
+
+.earning-table,
+.deduction-table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0;
+    background: #ffffff;
+    margin-bottom: 1rem;
+    vertical-align: top;
+    border-color: #dee2e6
+}
+
+.earning-table tbody td,
+.deduction-table tbody td {
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 0.5rem;
+    border-bottom: none;
+}
+
+.earning-table tbody td:last-child,
+.deduction-table tbody td:last-child {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.attendance-fomrik-fields {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0px;
+    /* justify-content: flex-end; */
+}
+
+.moth-field,
+.year-field {
+    width: 20%;
+}
+
+.delete-btn{
+    margin-left: 5px;
+    padding: 1px;
+    color: red;
+    font-size: 25px;
+    margin-top: 5px;
+    
+       /* color: white; */
+}
+
+.salary-filter-form-content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    /* justify-content: space-around; */
+    align-items: end;
+    width: 100%;
+}

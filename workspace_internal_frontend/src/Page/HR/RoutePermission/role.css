@@ -1,0 +1,11 @@
+.add-role-btn{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+
+}
+
+.back-btn {
+    display: flex;
+    justify-content: flex-end;
+}

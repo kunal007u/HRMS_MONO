@@ -1,0 +1,9 @@
+.review-form {
+    flex-wrap: wrap;
+}
+.content-box {
+    width: 49%;
+}
+.question{
+    width: 100%;
+}

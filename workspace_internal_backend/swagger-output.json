@@ -1,0 +1,4025 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "HRMS API documentation",
+    "description": "Description",
+    "version": "1.0.0"
+  },
+  "host": "localhost:9000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "scheme": "bearer",
+      "bearerFormat": "Token"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Authentication and user management routes"
+      },
+      {
+        "name": "Role",
+        "description": "Role management routes"
+      },
+      {
+        "name": "Route",
+        "description": "Route management routes"
+      },
+      {
+        "name": "Employee",
+        "description": "Employee management routes"
+      },
+      {
+        "name": "Department",
+        "description": "Department management routes"
+      },
+      {
+        "name": "Designation",
+        "description": "Designation management routes"
+      },
+      {
+        "name": "Leave",
+        "description": "Leave management routes"
+      },
+      {
+        "name": "Attendance",
+        "description": "Attendance management routes"
+      },
+      {
+        "name": "Document",
+        "description": "Document management routes"
+      },
+      {
+        "name": "Bank",
+        "description": "Bank management routes"
+      },
+      {
+        "name": "Experience Details",
+        "description": "Experience management routes"
+      },
+      {
+        "name": "Assets",
+        "description": "Assets management routes"
+      },
+      {
+        "name": "Emergency Contact",
+        "description": "Emergency contact management routes"
+      }
+    ],
+    "/auth/readPermission": {
+      "get": {
+        "tags": ["Auth"],
+        "description": "Endpoint for Employee ReadPermission details.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permission fetched successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "integer"
+                      },
+                      "ChildRoute": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Role not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/routePermission/{routeId}": {
+      "get": {
+        "tags": ["Auth"],
+        "description": "Retrieve permissions for a specific route.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "routeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the route"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permission found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "canCreate": {
+                      "type": "boolean"
+                    },
+                    "canRead": {
+                      "type": "boolean"
+                    },
+                    "canUpdate": {
+                      "type": "boolean"
+                    },
+                    "canDelete": {
+                      "type": "boolean"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "routeName": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Route or Role not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Permission not found.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/addEmployee": {
+      "post": {
+        "tags": ["Employee"],
+        "description": "Endpoint to add a new employee.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Access token for authentication"
+          },
+          {
+            "name": "firstName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "First name of the employee"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email address of the employee"
+          },
+          {
+            "name": "middleName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Middle name of the employee"
+          },
+          {
+            "name": "lastName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Last name of the employee"
+          },
+          {
+            "name": "dateOfJoining",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Date of joining of the employee"
+          },
+          {
+            "name": "phoneNumber",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Phone number of the employee"
+          },
+          {
+            "name": "departmentId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the department to which the employee belongs"
+          },
+          {
+            "name": "designationId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the designation of the employee"
+          },
+          {
+            "name": "pancardNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "PAN card number of the employee"
+          },
+          {
+            "name": "aadharNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Aadhar number of the employee"
+          },
+          {
+            "name": "uanNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "UAN (Universal Account Number) of the employee"
+          },
+          {
+            "name": "workLocation",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Work location of the employee"
+          },
+          {
+            "name": "pfNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "PF (Provident Fund) number of the employee"
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Gender of the employee"
+          },
+          {
+            "name": "roleId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the role of the employee"
+          },
+          {
+            "name": "currentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Current address of the employee"
+          },
+          {
+            "name": "permanentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Permanent address of the employee"
+          },
+          {
+            "name": "reportTo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the employee to whom the new employee reports"
+          },
+          {
+            "name": "profilePicture",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "Profile picture of the employee"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/employeeLogin": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint for employee login.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email address of the employee"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Password of the employee"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logOut": {
+      "get": {
+        "tags": ["Auth"],
+        "description": "Endpoint for logging out.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint for requesting a password reset.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Email address of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/verify-password": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint for verifying and updating password.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "New password of the user"
+          },
+          {
+            "name": "confirmPassword",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Confirm password to verify the new password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/resetPassword": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint for resetting the password.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "currentPassword",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Current password of the user"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "New password of the user"
+          },
+          {
+            "name": "confirmPassword",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Confirm password to verify the new password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/getAllEmployees": {
+      "get": {
+        "tags": ["Employee"],
+        "description": "Endpoint to get all employees.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "firstName": {
+                            "type": "string"
+                          },
+                          "lastName": {
+                            "type": "string"
+                          },
+                          "middleName": {
+                            "type": "string"
+                          },
+                          "profilePicture": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "firstName",
+                          "lastName",
+                          "middleName",
+                          "profilePicture",
+                          "role"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/updatePersonalDetails/{employeeId}": {
+      "put": {
+        "tags": ["Employee"],
+        "description": "Endpoint to update personal details of an employee.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "currentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's current address"
+          },
+          {
+            "name": "permanentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's permanent address"
+          },
+          {
+            "name": "pincode",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's pincode"
+          },
+          {
+            "name": "city",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's city"
+          },
+          {
+            "name": "state",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's state"
+          },
+          {
+            "name": "dateOfBirth",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Employee's date of birth"
+          },
+          {
+            "name": "qualification",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's qualification"
+          },
+          {
+            "name": "nationality",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's nationality"
+          },
+          {
+            "name": "passportNumber",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's passport number"
+          },
+          {
+            "name": "fatherName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's father's name"
+          },
+          {
+            "name": "motherName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's mother's name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/updateSignUpDetails/{employeeId}": {
+      "put": {
+        "tags": ["Employee"],
+        "description": "Endpoint to update sign-up details of an employee.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "firstName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's first name"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's email"
+          },
+          {
+            "name": "middleName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's middle name"
+          },
+          {
+            "name": "lastName",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's last name"
+          },
+          {
+            "name": "dateOfJoining",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Employee's date of joining"
+          },
+          {
+            "name": "phoneNumber",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's phone number"
+          },
+          {
+            "name": "departmentId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's department ID"
+          },
+          {
+            "name": "designationId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's designation ID"
+          },
+          {
+            "name": "pancardNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's PAN card number"
+          },
+          {
+            "name": "aadharNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's Aadhar card number"
+          },
+          {
+            "name": "uanNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's UAN number"
+          },
+          {
+            "name": "workLocation",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's work location"
+          },
+          {
+            "name": "pfNo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's PF number"
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's gender"
+          },
+          {
+            "name": "roleId",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's role ID"
+          },
+          {
+            "name": "currentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's current address"
+          },
+          {
+            "name": "permanentAddress",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's permanent address"
+          },
+          {
+            "name": "reportTo",
+            "in": "formData",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Employee's reporting manager ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/deleteEmployee/{employeeId}": {
+      "delete": {
+        "tags": ["Employee"],
+        "description": "Endpoint to delete an employee by ID.",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/getReportPerson": {
+      "get": {
+        "tags": ["Employee"],
+        "description": "Endpoint to get the report person.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "firstName": {
+                            "type": "string"
+                          },
+                          "lastName": {
+                            "type": "string"
+                          },
+                          "fullName": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/getByIdEmployee/{id?}": {
+      "get": {
+        "tags": ["Employee"],
+        "description": "Endpoint to get employee data by ID.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "employee": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "pancardNo": {
+                              "type": "string"
+                            },
+                            "middleName": {
+                              "type": "string"
+                            },
+                            "aadharNo": {
+                              "type": "string"
+                            },
+                            "uanNo": {
+                              "type": "string"
+                            },
+                            "workLocation": {
+                              "type": "string"
+                            },
+                            "pfNo": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "dateOfJoining": {
+                              "type": "string"
+                            },
+                            "gender": {
+                              "type": "string"
+                            },
+                            "phoneNumber": {
+                              "type": "string"
+                            },
+                            "departmentId": {
+                              "type": "string"
+                            },
+                            "designationId": {
+                              "type": "string"
+                            },
+                            "profilePicture": {
+                              "type": "string"
+                            },
+                            "currentAddress": {
+                              "type": "string"
+                            },
+                            "permanentAddress": {
+                              "type": "string"
+                            },
+                            "roleId": {
+                              "type": "string"
+                            },
+                            "isActive": {
+                              "type": "string"
+                            },
+                            "emergencyContact": {
+                              "type": "string"
+                            },
+                            "city": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "string"
+                            },
+                            "pincode": {
+                              "type": "string"
+                            },
+                            "passportNumber": {
+                              "type": "string"
+                            },
+                            "fatherName": {
+                              "type": "string"
+                            },
+                            "motherName": {
+                              "type": "string"
+                            },
+                            "dateOfBirth": {
+                              "type": "string"
+                            },
+                            "nationality": {
+                              "type": "string"
+                            },
+                            "experience": {
+                              "type": "integer"
+                            },
+                            "qualification": {
+                              "type": "string"
+                            },
+                            "reportTo": {
+                              "type": "string"
+                            },
+                            "designationName": {
+                              "type": "string"
+                            },
+                            "departmentName": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "documents": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "tenMarksheet": {
+                              "type": "string"
+                            },
+                            "twelveMarksheet": {
+                              "type": "string"
+                            },
+                            "degreeMarksheet": {
+                              "type": "string"
+                            },
+                            "adharCard": {
+                              "type": "string"
+                            },
+                            "panCard": {
+                              "type": "string"
+                            },
+                            "salarySlip1": {
+                              "type": "string"
+                            },
+                            "salarySlip2": {
+                              "type": "string"
+                            },
+                            "salarySlip3": {
+                              "type": "string"
+                            },
+                            "ProbationComplitionLetter": {
+                              "type": "string"
+                            },
+                            "appointmentLetter": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "bankDetails": {
+                          "type": "object",
+                          "properties": {
+                            "bankName": {
+                              "type": "string"
+                            },
+                            "accountNo": {
+                              "type": "string"
+                            },
+                            "IFSC": {
+                              "type": "string"
+                            },
+                            "branchName": {
+                              "type": "string"
+                            },
+                            "isActive": {
+                              "type": "string"
+                            },
+                            "employeeId": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "emergencyContacts": {
+                          "type": "object",
+                          "properties": {
+                            "primaryName": {
+                              "type": "string"
+                            },
+                            "primaryRelationship": {
+                              "type": "string"
+                            },
+                            "primaryPhoneNo": {
+                              "type": "string"
+                            },
+                            "primaryAddress": {
+                              "type": "string"
+                            },
+                            "secondaryName": {
+                              "type": "string"
+                            },
+                            "secondRelationship": {
+                              "type": "string"
+                            },
+                            "secondaryPhoneNo": {
+                              "type": "string"
+                            },
+                            "secondaryAddress": {
+                              "type": "string"
+                            },
+                            "employeeId": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "experienceDetails": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "companyName": {
+                                "type": "string"
+                              },
+                              "designation": {
+                                "type": "string"
+                              },
+                              "location": {
+                                "type": "string"
+                              },
+                              "periodFrom": {
+                                "type": "string"
+                              },
+                              "periodTo": {
+                                "type": "string"
+                              },
+                              "experienceId": {
+                                "type": "integer"
+                              },
+                              "employeeId": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "assets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "assetsName": {
+                                "type": "string"
+                              },
+                              "assetsId": {
+                                "type": "string"
+                              },
+                              "assignedDate": {
+                                "type": "string"
+                              },
+                              "brand": {
+                                "type": "string"
+                              },
+                              "category": {
+                                "type": "string"
+                              },
+                              "cost": {
+                                "type": "string"
+                              },
+                              "warranty": {
+                                "type": "string"
+                              },
+                              "employeeId": {
+                                "type": "string"
+                              },
+                              "assetsImages": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": {
+                    "message": "Employee not found",
+                    "code": 404,
+                    "type": "Error"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": {
+                    "message": "Encountered some error.",
+                    "code": 500,
+                    "type": "Error"
+                  },
+                  "error": "Internal server error message here"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document/add": {
+      "post": {
+        "tags": ["Document"],
+        "description": "Upload employee documents.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "tenMarksheet",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "twelveMarksheet",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "degreeMarksheet",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "adharCard",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "panCard",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "salarySlip1",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "salarySlip2",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "salarySlip3",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "probationComplitionLetter",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          },
+          {
+            "name": "appointmentLetter",
+            "in": "formData",
+            "type": "file",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/bank/addBank": {
+      "post": {
+        "tags": ["Bank"],
+        "description": "Add bank details.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "bankName",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "accountNo",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "IFSC",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "branchName",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/bank/deleteBank/{bankId}": {
+      "delete": {
+        "tags": ["Bank"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "bankId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/bank/getBank": {
+      "get": {
+        "tags": ["Bank"],
+        "description": "Get bank details.",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Successfully get bank details"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Success"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "36df831a-04d4-47e3-a630-a47cddc6d7c4"
+                        },
+                        "employeeId": {
+                          "type": "string",
+                          "example": "cae6b401-b5d4-4fb6-8a4c-d1d71b915d34"
+                        },
+                        "bankName": {
+                          "type": "string",
+                          "example": "dddddddddddddddddddddddd"
+                        },
+                        "branchName": {
+                          "type": "string",
+                          "example": "shsh"
+                        },
+                        "accountNo": {
+                          "type": "string",
+                          "example": "101010101010"
+                        },
+                        "IFSC": {
+                          "type": "string",
+                          "example": "asbsshs"
+                        },
+                        "isActive": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "example": "2024-06-18T09:43:40.884Z"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "example": "2024-06-18T09:43:40.885Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "There is no request body."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "No request body."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Encountered error in getBankDetailsByEmployee"
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Error details here"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/designation/addDesignation": {
+      "post": {
+        "tags": ["Designation"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/designation/getAllDesignation": {
+      "get": {
+        "tags": ["Designation"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/designation/updateDesignation/{id}": {
+      "put": {
+        "tags": ["Designation"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/designation/deleteDesignation/{id}": {
+      "put": {
+        "tags": ["Designation"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/getAllRoles": {
+      "get": {
+        "tags": ["Role"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/getRole/{id}": {
+      "get": {
+        "tags": ["Role"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/createRole": {
+      "post": {
+        "tags": ["Role"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/deleteRole/{id}": {
+      "put": {
+        "tags": ["Role"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/updateRole": {
+      "post": {
+        "tags": ["Role"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/department/addDepartment": {
+      "post": {
+        "tags": ["Department"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/department/getAllDepartment": {
+      "get": {
+        "tags": ["Department"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/department/updateDepartment/{id}": {
+      "put": {
+        "tags": ["Department"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/department/deleteDepartment/{id}": {
+      "put": {
+        "tags": ["Department"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/route/getAllRoutes": {
+      "get": {
+        "tags": ["Route"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/experienceDetails/addExperienceDetails": {
+      "post": {
+        "tags": ["Experience Details"],
+        "description": "Add experience details",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "experienceDetails",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "object",
+                  "properties": {
+                    "companyName": {
+                      "type": "string",
+                      "example": "Company A"
+                    },
+                    "designation": {
+                      "type": "string",
+                      "example": "Engineer"
+                    },
+                    "location": {
+                      "type": "string",
+                      "example": "Location A"
+                    },
+                    "periodFrom": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2020-01-01"
+                    },
+                    "periodTo": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-01-01"
+                    }
+                  }
+                },
+                "2": {
+                  "type": "object",
+                  "properties": {
+                    "companyName": {
+                      "type": "string",
+                      "example": "Company B"
+                    },
+                    "designation": {
+                      "type": "string",
+                      "example": "Manager"
+                    },
+                    "location": {
+                      "type": "string",
+                      "example": "Location B"
+                    },
+                    "periodFrom": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2021-02-01"
+                    },
+                    "periodTo": {
+                      "type": "string",
+                      "format": "date",
+                      "example": "2022-02-01"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Experience Details successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Experience Details successfully"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 201
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Created"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid EmployeeId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid EmployeeId"
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "notFound"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered some error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Encountered some error."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Error details here"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experienceDetails/deleteExperienceDetails": {
+      "delete": {
+        "tags": ["Experience Details"],
+        "description": "Delete experience details",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "experienceId",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the experience to be deleted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Experience Details deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Experience Details deleted successfully"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Success"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Please add the ExperienceId fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Please add the ExperienceId fields."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Empty fields."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid Employee or Experience Details does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "examples": {
+                            "Invalid Employee": "Invalid Employee",
+                            "Experience Details does not exist": "This experience Details does not exist"
+                          }
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "notFound"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered some error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Encountered some error."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Error details here"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assets/addAssets": {
+      "post": {
+        "tags": ["Assets"],
+        "description": "Add assets for an employee",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "assetsName",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "assignedDate",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "brand",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cost",
+            "in": "query",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "warranty",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "assetsImages",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Experience Details successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Experience Details successfully"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 201
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Success"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is no request body.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "There is no request body."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "No request body."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid Employee",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid Employee"
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "notFound"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered some error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Encountered some error."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Error details here"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assets/deleteAssets": {
+      "delete": {
+        "tags": ["Assets"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "assetsId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/emergencyContact/addEmergencyContact": {
+      "post": {
+        "tags": ["Emergency Contact"],
+        "description": "Add emergency contact details for an employee",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "primaryName",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "primaryRelationship",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "primaryPhoneNo",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "primaryAddress",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "secondaryName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "secondRelationship",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "secondaryPhoneNo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "secondaryAddress",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Emergency contacts updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Emergency contacts update successfully"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Success"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Emergency contacts created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Emergency contacts create successfully"
+                        },
+                        "code": {
+                          "type": "integer",
+                          "example": 201
+                        },
+                        "type": {
+                          "type": "string",
+                          "example": "Success"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Employee",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Invalid Employee"
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "notFound"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered some error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Encountered some error."
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "Error details here"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/emergencyContact/deleteEmergencyContact": {
+      "delete": {
+        "tags": ["Emergency Contact"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/attendance/employeeLog/create": {
+      "post": {
+        "tags": ["Attendance"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/attendance/getByEmployeeCode": {
+      "get": {
+        "tags": ["Attendance"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/worklog/create": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added WorkLog.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/add": {
+      "post": {
+        "description": "Project added successfully",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/project/getById/{projectId}": {
+      "get": {
+        "description": "Successfully get Project",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the project"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get Project",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/getAll/": {
+      "get": {
+        "description": "Projects get successfully",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },"/project/delete/:{projectId}":{
+      "delete":{
+        "description":"Successfully deleted project",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

@@ -1,0 +1,134 @@
+.login-form-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.left-part {
+    /* background: url(../../Assets/Images/LoginBg.avif); */
+    background: url(../../Assets/Images/hrms_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100vh;
+    position: relative;
+    background-color: rgb(107 114 128 / 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-part-bg {
+    opacity: 0.6;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+
+}
+
+.left-part-project-content {
+    width: 100%;
+    z-index: 10;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    position: relative;
+}
+
+.project-name {
+    letter-spacing: 0.025em;
+    line-height: 1;
+    text-align: left;
+    color: #ffffff;
+}
+
+.project-name-word {
+    font-size: 3rem;
+}
+
+.project-name-word::first-letter {
+    color: #6466f1;
+    font-size: 4rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+}
+
+.project-description {
+    color: white;
+    margin-top: 25px;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.right-part {
+    background-color: rgb(22, 22, 22);
+    width: 50%;
+    height: 100vh;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+.pragetx-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 99999;
+    width: 200px;
+    filter: brightness(0) invert(1);
+}
+
+.welcome {
+    color: white;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+}
+
+.welcome svg {
+    font-size: 30px;
+    transform: rotate(180deg);
+}
+
+.login-page-fields {
+    color: white !important;
+    margin-top: 30px;
+    background: black;
+    padding: 10px;
+}
+
+.Mui-focused {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.login-form {
+    width: 70%;
+}
+
+
+
+.forgot-password {
+    text-align: right;
+    margin: 15px 0px;
+}
+
+.forgot-password a {
+    color: rgb(156 163 175 / 1);
+}

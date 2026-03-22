@@ -1,0 +1,7 @@
+.text-editor .ql-container .ql-editor {
+    min-height: 300px;
+}
+
+.work-log-editor .ql-container .ql-editor {
+    min-height: 200px;
+}
