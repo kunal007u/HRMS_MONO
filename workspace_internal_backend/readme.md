@@ -16,7 +16,7 @@ HRMS is a comprehensive web application designed to streamline and automate vari
 
 - **Frontend**: React.js, React Router, Redux
 - **Backend**: Node.js, Express.js
-- **Database**: PostgresQL 
+- **Database**: PostgreSQL with Neon (Serverless)
 - **Authentication**: JSON Web Tokens (JWT)
 - **Styling**: CSS/SCSS, Material-UI 
 
@@ -26,17 +26,51 @@ HRMS is a comprehensive web application designed to streamline and automate vari
 
 - Node.js (v18 or later)
 - npm (Node Package Manager)
-- PostgresQL 
+- PostgreSQL (or Neon account for production)
 
 ### Installation
 
 1. Clone the repository: git clone https://github.com/nayaka707/hrms_backend.git
 2. Navigate to the project directory: cd hrms_backend
 3. Install the dependencies: npm install
-4. Configure the environment variables : .env file
+4. Configure the environment variables in `.env` file (see Neon Setup below)
 5. Start the development server: npm start
-
 6. The application should now be running at `http://localhost:9000`.
+
+## Neon Database Setup (Production with Netlify)
+
+### Step 1: Create a Neon Project
+1. Go to [neon.tech](https://neon.tech) and sign up/login
+2. Create a new project
+3. Select PostgreSQL as the database
+4. Copy your **connection string** (looks like: `postgresql://user:password@ep-xxxxx.us-east-1.neon.tech/dbname`)
+
+### Step 2: Add Neon Connection to Environment Variables
+Add to your Netlify environment variables:
+```
+NETLIFY_DATABASE_URL=postgresql://user:password@ep-xxxxx.us-east-1.neon.tech/dbname
+```
+
+Or in your local `.env` file for testing:
+```
+# Local Development (PostgreSQL)
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=hrms_db
+DB_HOST=localhost
+DB_PORT=5432
+
+# Netlify Production (Neon)
+NETLIFY_DATABASE_URL=postgresql://user:password@ep-xxxxx.us-east-1.neon.tech/dbname
+```
+
+### Step 3: Database Configuration is Already Updated
+Your `config/database.js` has been updated to automatically detect and use Neon when `NETLIFY_DATABASE_URL` is present.
+
+### Step 4: Deploy to Netlify
+1. In your Netlify dashboard, go to **Site settings** → **Build & deploy** → **Environment**
+2. Add the `NETLIFY_DATABASE_URL` variable with your Neon connection string
+3. Deploy your backend (or redeploy for changes to take effect)
 
 ## Contributing
 

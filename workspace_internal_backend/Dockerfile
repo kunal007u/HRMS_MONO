@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . /app
 
+# Install netcat for health checks
+RUN apk add --no-cache netcat-openbsd
+
 # Expose port 9000 to allow external access
 EXPOSE 9000
 
-# Wait for the database to be ready
+# Wait for the database to be ready and run migrations
 CMD ["sh", "-c", "until nc -z -v -w30 db 5432; do echo 'Waiting for database connection...'; sleep 1; done; npx sequelize-cli db:migrate && node server.js"]
