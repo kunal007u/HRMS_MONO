@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "generateDoc": "node swagger.js",
-    "migrate": "sequelize db:migrate"
+    "migrate": "sequelize db:migrate",
+    "build": "npm install"
   },
   "author": "",
   "license": "ISC",

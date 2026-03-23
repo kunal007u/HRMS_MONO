@@ -46,7 +46,6 @@ bun*
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
-package-lock.json
 yarn.lock
 npm-shrinkwrap.json
 
