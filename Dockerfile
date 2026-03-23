@@ -8,6 +8,9 @@ WORKDIR /app
 COPY workspace_internal_backend/package.json ./
 COPY workspace_internal_backend/package-lock.json* ./
 
+# Create the loggerFiles directory before installing dependencies
+RUN mkdir -p src/loggerFiles
+
 # Install the dependencies specified in package.json
 RUN npm install
 
