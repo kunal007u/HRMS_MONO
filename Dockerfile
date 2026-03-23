@@ -4,14 +4,15 @@ FROM node:22-alpine
 # Set the working directory inside the container to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Copy package.json and optional package-lock.json to the working directory
+COPY workspace_internal_backend/package.json ./
+COPY workspace_internal_backend/package-lock.json* ./
 
 # Install the dependencies specified in package.json
 RUN npm install
 
 # Copy the rest of the application code to the working directory
-COPY . /app
+COPY workspace_internal_backend/ /app
 
 # Install netcat for health checks
 RUN apk add --no-cache netcat-openbsd
