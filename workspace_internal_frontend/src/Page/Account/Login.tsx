@@ -97,7 +97,15 @@ const Login: React.FC = () => {
 
 
                 <div className="right-part">
+
                     <div className="login-form">
+                        <div className="right-part-bg" style={{color: "white"}}>
+                            <p>
+                                LOGIN CREDENTIALS: <br />
+                                Email:john.doe@example.com <br />
+                                Password: password123
+                            </p>
+                        </div>
                         <h1>
                             <span className="welcome">Welcome <BsEmojiSmileUpsideDown /></span>
                         </h1>
