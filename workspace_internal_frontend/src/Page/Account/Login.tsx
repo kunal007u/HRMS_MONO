@@ -103,7 +103,7 @@ const Login: React.FC = () => {
                             <p>
                                 LOGIN CREDENTIALS: <br />
                                 Email:john.doe@example.com <br />
-                                Password: password123
+                                Password: Test@123
                             </p>
                         </div>
                         <h1>
