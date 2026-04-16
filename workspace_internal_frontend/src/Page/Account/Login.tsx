@@ -81,7 +81,7 @@ const Login: React.FC = () => {
             <section className="login-form-container">
                 <div className="left-part">
                     <div className="pragetx-logo">
-                        <img src={pragetx} alt="logo" />
+                        {/* <img src={pragetx} alt="logo" /> */}
                     </div>
                     <div className="left-part-bg"></div>
                     <div className="left-part-project-content">
