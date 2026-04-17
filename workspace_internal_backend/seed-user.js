@@ -2,80 +2,96 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgresql://localhost:5432/hrms', {
-  dialect: 'postgres',
-  logging: false,
-  dialectOptions: {
-    ssl: process.env.DATABASE_URL ? {
-      require: true,
-      rejectUnauthorized: false,
-    } : false,
-  },
-});
-
-// Define Employees model
-const Employees = sequelize.define('employees', {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true,
-  },
-  firstName: Sequelize.STRING,
-  lastName: Sequelize.STRING,
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    lowercase: true,
-  },
-  password: Sequelize.STRING,
-  isActive: Sequelize.BOOLEAN,
-  roleId: Sequelize.UUID,
-  departmentId: Sequelize.UUID,
-  designationId: Sequelize.UUID,
-  dateOfJoining: Sequelize.DATEONLY,
-  phoneNumber: Sequelize.STRING,
-  employee_code: Sequelize.STRING,
-  employeeType: Sequelize.STRING,
-  pancardNo: Sequelize.STRING,
-  aadharNo: Sequelize.STRING,
-  uanNo: Sequelize.STRING,
-  workLocation: Sequelize.STRING,
-  pfNo: Sequelize.STRING,
-  gender: Sequelize.STRING,
-  currentAddress: Sequelize.STRING,
-  permanentAddress: Sequelize.STRING,
-  emergencyContact: Sequelize.STRING,
-  passportNumber: Sequelize.STRING,
-  fatherName: Sequelize.STRING,
-  motherName: Sequelize.STRING,
-  nationality: Sequelize.STRING,
-  experience: Sequelize.INTEGER,
-  qualification: Sequelize.STRING,
-  isProbationCompleted: Sequelize.BOOLEAN,
-  sessionId: Sequelize.UUID,
-  deletedAt: Sequelize.DATE,
-}, {
-  timestamps: true,
-  tableName: 'employees',
-});
-
 async function seedUser() {
   try {
+    // Parse DATABASE_URL
+    const dbUrl = process.env.DATABASE_URL;
+    if (!dbUrl) {
+      console.log('⚠️  DATABASE_URL not set, skipping user seed');
+      process.exit(0);
+    }
+
+    console.log('🔄 Attempting to connect to database...');
+    const sequelize = new Sequelize(dbUrl, {
+      dialect: 'postgres',
+      logging: false,
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
+      pool: {
+        max: 2,
+        min: 1,
+        acquire: 30000,
+        idle: 10000,
+      },
+    });
+
     // Test connection
     await sequelize.authenticate();
     console.log('✅ Database connected successfully');
 
-    const hashedPassword = bcrypt.hashSync('Test@123', 12);
+    // Define Employees model
+    const Employees = sequelize.define('employees', {
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+      },
+      firstName: Sequelize.STRING,
+      lastName: Sequelize.STRING,
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      password: Sequelize.STRING,
+      isActive: Sequelize.BOOLEAN,
+      roleId: Sequelize.UUID,
+      departmentId: Sequelize.UUID,
+      designationId: Sequelize.UUID,
+      dateOfJoining: Sequelize.DATEONLY,
+      phoneNumber: Sequelize.STRING,
+      employee_code: Sequelize.STRING,
+      employeeType: Sequelize.STRING,
+      pancardNo: Sequelize.STRING,
+      aadharNo: Sequelize.STRING,
+      uanNo: Sequelize.STRING,
+      workLocation: Sequelize.STRING,
+      pfNo: Sequelize.STRING,
+      gender: Sequelize.STRING,
+      currentAddress: Sequelize.TEXT,
+      permanentAddress: Sequelize.TEXT,
+      emergencyContact: Sequelize.STRING,
+      passportNumber: Sequelize.STRING,
+      fatherName: Sequelize.STRING,
+      motherName: Sequelize.STRING,
+      nationality: Sequelize.STRING,
+      experience: Sequelize.INTEGER,
+      qualification: Sequelize.STRING,
+      isProbationCompleted: Sequelize.BOOLEAN,
+      sessionId: Sequelize.UUID,
+      deletedAt: Sequelize.DATE,
+    }, {
+      timestamps: true,
+      tableName: 'employees',
+      underscored: false,
+    });
 
     // Check if user already exists
     const existingUser = await Employees.findOne({
       where: { email: 'john.doe@example.com' },
+      raw: true,
     });
 
     if (existingUser) {
-      console.log('✅ User john.doe@example.com already exists');
+      console.log('✅ User john.doe@example.com already exists in database');
+      await sequelize.close();
       process.exit(0);
     }
+
+    // Hash password
+    const hashedPassword = bcrypt.hashSync('Test@123', 12);
 
     // Insert the user
     await Employees.create({
@@ -111,13 +127,22 @@ async function seedUser() {
       sessionId: null,
     });
 
-    console.log('✅ User john.doe@example.com created successfully with password: Test@123');
+    console.log('✅ User john.doe@example.com created successfully!');
+    console.log('📧 Email: john.doe@example.com');
+    console.log('🔐 Password: Test@123');
+    
+    await sequelize.close();
     process.exit(0);
   } catch (error) {
-    console.error('❌ Error seeding user:', error.message);
-    // Don't fail the process, just log the error
+    console.error('❌ Error:', error.message);
+    // Don't block app startup on seeding error
     process.exit(0);
   }
 }
 
-seedUser();
+// Run if this file is executed directly
+if (require.main === module) {
+  seedUser();
+}
+
+module.exports = seedUser;
