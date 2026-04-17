@@ -1,4 +1,6 @@
-require("dotenv").config({ path: "../../.env" });
+// config/config.js
+
+require("dotenv").config(); // no custom path
 
 module.exports = {
   development: {
@@ -9,14 +11,16 @@ module.exports = {
     port: process.env.DB_PORT,
     dialect: "postgres",
   },
+
   production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
+    use_env_variable: "DATABASE_URL",
+    dialect: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // Often required for managed databases like Render
-      }
-    }
-  }
+        rejectUnauthorized: false,
+      },
+    },
+    logging: false,
+  },
 };
