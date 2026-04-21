@@ -80,20 +80,14 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
       rejectUnauthorized: false,
     },
   },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-  logging: false,
 });
 
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("DB connected");
-  } catch (err) {
-    console.error("DB error:", err);
-  }
-})();
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// import models AFTER sequelize is created
+db.employee = require("./employee.model")(sequelize, Sequelize);
+
+module.exports = db;
