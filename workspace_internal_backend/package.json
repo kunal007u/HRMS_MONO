@@ -47,6 +47,7 @@
     "sequelize": "^6.37.8",
     "sequelize-cli": "^6.6.2",
     "sharp": "^0.33.5",
+    "supabase": "^2.93.0",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
